@@ -92,7 +92,7 @@ func (t *truthBeamProcessor) start(ctx context.Context, host component.Host) err
 		return err
 	}
 
-	cacheableClient, err := client.NewCacheableClient(baseClient, t.logger, t.config.CacheTTL, t.config.MaxCacheSizeMB)
+	cacheableClient, err := client.NewCacheableClient(baseClient, t.logger, t.config.CacheTTL, t.config.CacheCapacity)
 	if err != nil {
 		return fmt.Errorf("failed to create cacheable client: %w", err)
 	}

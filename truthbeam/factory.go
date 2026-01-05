@@ -36,7 +36,7 @@ func createDefaultConfig() component.Config {
 	return &Config{
 		ClientConfig:   clientConfig,
 		CacheTTL:       client.DefaultCacheTTL,
-		MaxCacheSizeMB: client.DefaultMaxCacheSizeMB,
+		CacheCapacity: client.DefaultCacheCapacity,
 	}
 }
 

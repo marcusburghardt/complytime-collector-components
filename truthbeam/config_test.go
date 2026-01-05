@@ -213,37 +213,37 @@ func TestCacheTTLWithValidEndpoint(t *testing.T) {
 		"Zero cache TTL should be normalized to DefaultCacheTTL")
 }
 
-// TestMaxCacheSizeMBValidation tests the max_cache_size_mb configuration validation
-func TestMaxCacheSizeMBValidation(t *testing.T) {
+// TestCacheCapacityValidation tests the cache_capacity configuration validation
+func TestCacheCapacityValidation(t *testing.T) {
 	tests := []struct {
-		name           string
-		maxCacheSizeMB int
-		expectedAfter  int
-		expectError    bool
+		name          string
+		cacheCapacity int
+		expectedAfter int
+		expectError   bool
 	}{
 		{
-			name:           "zero max cache size normalizes to default",
-			maxCacheSizeMB: 0,
-			expectedAfter:  client.DefaultMaxCacheSizeMB,
-			expectError:    false,
+			name:          "zero cache capacity normalizes to default",
+			cacheCapacity: 0,
+			expectedAfter: client.DefaultCacheCapacity,
+			expectError:   false,
 		},
 		{
-			name:           "positive max cache size preserved",
-			maxCacheSizeMB: 50,
-			expectedAfter:  50,
-			expectError:    false,
+			name:          "positive cache capacity preserved",
+			cacheCapacity: 50000,
+			expectedAfter: 50000,
+			expectError:   false,
 		},
 		{
-			name:           "negative max cache size should fail",
-			maxCacheSizeMB: -1,
-			expectedAfter:  0,
-			expectError:    true,
+			name:          "negative cache capacity should fail",
+			cacheCapacity: -1,
+			expectedAfter: 0,
+			expectError:   true,
 		},
 		{
-			name:           "large max cache size preserved",
-			maxCacheSizeMB: 500,
-			expectedAfter:  500,
-			expectError:    false,
+			name:          "large cache capacity preserved",
+			cacheCapacity: 200000,
+			expectedAfter: 200000,
+			expectError:   false,
 		},
 	}
 
@@ -253,7 +253,7 @@ func TestMaxCacheSizeMBValidation(t *testing.T) {
 				ClientConfig: confighttp.ClientConfig{
 					Endpoint: "http://localhost:8081",
 				},
-				MaxCacheSizeMB: tt.maxCacheSizeMB,
+				CacheCapacity: tt.cacheCapacity,
 			}
 
 			err := cfg.Validate()
@@ -261,7 +261,7 @@ func TestMaxCacheSizeMBValidation(t *testing.T) {
 				assert.Error(t, err, "Expected validation error")
 			} else {
 				assert.NoError(t, err, "Expected no validation error")
-				assert.Equal(t, tt.expectedAfter, cfg.MaxCacheSizeMB)
+				assert.Equal(t, tt.expectedAfter, cfg.CacheCapacity)
 			}
 		})
 	}

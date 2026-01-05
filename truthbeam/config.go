@@ -14,7 +14,7 @@ import (
 type Config struct {
 	ClientConfig   confighttp.ClientConfig `mapstructure:",squash"`           // squash ensures fields are correctly decoded in embedded struct.
 	CacheTTL       time.Duration           `mapstructure:"cache_ttl"`         // Cache TTL for compliance metadata
-	MaxCacheSizeMB int                     `mapstructure:"max_cache_size_mb"` // Maximum cache size in megabytes (0 = use default from client.DefaultMaxCacheSizeMB)
+	CacheCapacity int `mapstructure:"cache_capacity"` // Cache capacity in number of entries (0 = use default from client.DefaultCacheCapacity)
 }
 
 var _ component.Config = (*Config)(nil)
@@ -28,12 +28,12 @@ func (cfg *Config) Validate() error {
 	if cfg.CacheTTL == 0 {
 		cfg.CacheTTL = client.DefaultCacheTTL
 	}
-	// Set default max cache size if not specified
-	if cfg.MaxCacheSizeMB == 0 {
-		cfg.MaxCacheSizeMB = client.DefaultMaxCacheSizeMB
+	// Set default cache capacity if not specified
+	if cfg.CacheCapacity == 0 {
+		cfg.CacheCapacity = client.DefaultCacheCapacity
 	}
-	if cfg.MaxCacheSizeMB < 0 {
-		return errors.New("max_cache_size_mb must be non-negative")
+	if cfg.CacheCapacity < 0 {
+		return errors.New("cache_capacity must be non-negative")
 	}
 
 	return nil

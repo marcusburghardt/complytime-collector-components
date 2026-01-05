@@ -10,10 +10,9 @@ import (
 // cache efficiency with eventual consistency.
 const DefaultCacheTTL = 24 * time.Hour
 
-// DefaultMaxCacheSizeMB is the default maximum cache size in megabytes.
-// Set to 512MB to provide reasonable capacity for compliance metadata caching
-// while preventing unbounded cache growth.
-const DefaultMaxCacheSizeMB = 512
+// DefaultCacheCapacity is the default fixed capacity for Otter cache in number of entries.
+// Set to 100000 entries to provide reasonable capacity for compliance metadata caching.
+const DefaultCacheCapacity = 100000
 
 // CacheKeySeparator is the separator used to create composite cache keys
 // from policy engine name and policy rule id.

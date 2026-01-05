@@ -27,13 +27,17 @@ type CacheableClient struct {
 
 // NewCacheableClient creates a new enriched client with caching capabilities.
 // To use a different cache backend, use NewCacheableClientWithCache instead.
-func NewCacheableClient(client *Client, logger *zap.Logger, ttl time.Duration, maxCacheSizeMB int) (*CacheableClient, error) {
-	// Use default max cache size if not specified
-	if maxCacheSizeMB == 0 {
-		maxCacheSizeMB = DefaultMaxCacheSizeMB
+func NewCacheableClient(client *Client, logger *zap.Logger, ttl time.Duration, maxEntries int) (*CacheableClient, error) {
+	// Use default cache TTL if not specified
+	if ttl == 0 {
+		ttl = DefaultCacheTTL
+	}
+	// Use default cache capacity if not specified
+	if maxEntries == 0 {
+		maxEntries = DefaultCacheCapacity
 	}
 
-	cache, err := NewBigCacheStore(context.Background(), ttl, maxCacheSizeMB)
+	cache, err := NewOtterStore(ttl, maxEntries)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create cache: %w", err)
 	}
