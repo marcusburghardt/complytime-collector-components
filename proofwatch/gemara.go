@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"time"
 
-	gemara "github.com/gemaraproj/go-gemara"
+	"github.com/gemaraproj/go-gemara"
 	"go.opentelemetry.io/otel/attribute"
 )
 
@@ -12,7 +12,7 @@ var _ Evidence = (*GemaraEvidence)(nil)
 
 // GemaraEvidence represents evidence data from the Gemara compliance assessment framework.
 type GemaraEvidence struct {
-	Metadata gemara.Metadata `json:"metadata" yaml:"metadata"`
+	Metadata gemara.Metadata
 	gemara.AssessmentLog
 }
 

@@ -29,7 +29,7 @@ The attribute model (`model/attributes.yaml`) currently references incorrect lay
 
 ### 1. Direct import replacement without adapter layer
 
-Replace `github.com/ossf/gemara/layer4` imports with `gemara "github.com/gemaraproj/go-gemara"` using a package alias for readability. No adapter or compatibility wrapper is needed because the new SDK's API surface maps 1:1 onto the old one after type renames.
+Replace `github.com/ossf/gemara/layer4` imports with `"github.com/gemaraproj/go-gemara"`. No adapter or compatibility wrapper is needed because the new SDK's API surface maps 1:1 onto the old one after type renames.
 
 **Alternatives considered:**
 - *Adapter pattern*: Wrapping the new SDK to preserve old type names. Rejected -- adds indirection without benefit since all consumers are internal and the rename is mechanical.

@@ -1,6 +1,6 @@
 package applier
 
-import gemara "github.com/gemaraproj/go-gemara"
+import "github.com/gemaraproj/go-gemara"
 
 // Status defines the compliance status value
 type Status int

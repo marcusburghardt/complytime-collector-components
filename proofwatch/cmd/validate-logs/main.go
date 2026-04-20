@@ -8,7 +8,7 @@ import (
 	"time"
 
 	ocsf "github.com/Santiago-Labs/go-ocsf/ocsf/v1_5_0"
-	gemara "github.com/gemaraproj/go-gemara"
+	"github.com/gemaraproj/go-gemara"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/plog"
 	"go.opentelemetry.io/otel/attribute"
