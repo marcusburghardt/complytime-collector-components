@@ -26,7 +26,7 @@ groups:
         brief: >
           Unique identifier for the policy rule being evaluated or enforced.
         examples: ["deny-root-user", "require-encryption", "check-labels"]
-        requirement_level: required
+        requirement_level: opt_in
       - id: policy.rule.name
         type: string
         stability: development

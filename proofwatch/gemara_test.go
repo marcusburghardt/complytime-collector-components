@@ -121,6 +121,39 @@ func TestGemaraEvidenceAttributesEmptyFields(t *testing.T) {
 	assert.NotContains(t, attrMap, COMPLIANCE_REMEDIATION_DESCRIPTION)
 }
 
+func TestGemaraEvidenceAttributes_NilPlan(t *testing.T) {
+	evidence := GemaraEvidence{
+		Metadata: gemara.Metadata{
+			Id: "test-assessment-no-plan",
+			Author: gemara.Actor{
+				Name: "test-author",
+			},
+		},
+		AssessmentLog: gemara.AssessmentLog{
+			Requirement: gemara.EntryMapping{
+				EntryId:     "test-control-id",
+				ReferenceId: "test-catalog-id",
+			},
+			Plan:   nil,
+			Result: gemara.Passed,
+		},
+	}
+
+	attrs := evidence.Attributes()
+	require.NotEmpty(t, attrs)
+	attrMap := attrsToMap(t, attrs)
+
+	// Core attributes still present
+	assert.Equal(t, "test-author", attrMap[POLICY_ENGINE_NAME])
+	assert.Equal(t, "test-control-id", attrMap[COMPLIANCE_CONTROL_ID])
+	assert.Equal(t, "test-catalog-id", attrMap[COMPLIANCE_CONTROL_CATALOG_ID])
+	assert.Equal(t, "Passed", attrMap[POLICY_EVALUATION_RESULT])
+	assert.Equal(t, "test-assessment-no-plan", attrMap[COMPLIANCE_ASSESSMENT_ID])
+
+	// policy.rule.id MUST be absent when Plan is nil
+	assert.NotContains(t, attrMap, POLICY_RULE_ID)
+}
+
 func TestGemaraEvidenceAttributesDifferentResults(t *testing.T) {
 	tests := []struct {
 		name     string
