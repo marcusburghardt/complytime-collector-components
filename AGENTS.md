@@ -1,4 +1,4 @@
-# complybeacon
+# complytime-collector-components
 
 Open-source observability toolkit that collects, normalizes, and enriches compliance evidence by extending the OpenTelemetry standard. Uses a Go workspace monorepo with two active modules (`proofwatch`, `truthbeam`) and an OTel Collector distribution (`beacon-distro`).
 
@@ -79,3 +79,15 @@ All commits MUST use Conventional Commits, the `-s` flag (Signed-off-by), and in
 
 <!-- MANUAL ADDITIONS START -->
 <!-- MANUAL ADDITIONS END -->
+
+## Convention Packs
+
+This repository uses convention packs scaffolded by
+unbound-force. Agents MUST read the applicable pack(s)
+before writing or reviewing code.
+
+- `.opencode/uf/packs/default.md`
+- `.opencode/uf/packs/default-custom.md`
+- `.opencode/uf/packs/severity.md`
+- `.opencode/uf/packs/content.md`
+- `.opencode/uf/packs/content-custom.md`
